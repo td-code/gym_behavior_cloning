@@ -22,6 +22,7 @@ conda create --name behavior-cloning python=3.10.12 ipython
 conda activate behavior-cloning
 conda install conda-forge::gymnasium conda-forge::pygame numpy
 conda install conda-forge::swig conda-forge::gymnasium-box2d
+conda install conda-forge::moviepy
 conda install pandas matplotlib
 conda install pytorch torchvision -c pytorch
 conda install anaconda::ipykernel anaconda::jupyter
