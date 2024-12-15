@@ -45,7 +45,7 @@ def evaluate(args, trained_network_file):
 
             steer, gas, brake = infer_action.scores_to_action(action_scores)
 
-            observation, reward, done, trunc = env.step([steer, gas, brake])
+            observation, reward, done, trunc, info = env.step([steer, gas, brake])
             reward_per_episode += reward
 
         print('episode %d \t reward %f' % (episode, reward_per_episode))
@@ -87,7 +87,7 @@ def calculate_score_for_leaderboard(args, trained_network_file):
                     np.ascontiguousarray(observation[None])).to(device))
 
                 steer, gas, brake = infer_action.scores_to_action(action_scores)
-                observation, reward, done, trunc = env.step([steer, gas, brake])
+                observation, reward, done, trunc, info = env.step([steer, gas, brake])
                 reward_per_episode += reward
 
             print('episode %d \t reward %f' % (episode, reward_per_episode))
@@ -128,7 +128,7 @@ if __name__ == "__main__":
     main_parser.add_argument(
         "--training_data_path",
         type=str,
-        default="data/augmented_training_data.npz",
+        default="augmented_training_data.npz",
         help="Save path of the trained model."
     )
 

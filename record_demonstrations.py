@@ -119,9 +119,9 @@ def record_demonstrations(demonstrations_file):
                                     status.brake]))
             # submit the users' action to the environment and get the reward
             # for that step as well as the new observation (status)
-            observation, reward, done, trunc = env.step([status.steer, 
-                                                         status.accelerate,
-                                                         status.brake])
+            observation, reward, done, trunc, info = env.step([status.steer, 
+                                                               status.accelerate,
+                                                               status.brake])
 
             total_reward += reward
             time.sleep(0.01)

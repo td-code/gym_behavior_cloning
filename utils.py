@@ -25,21 +25,21 @@ class SDC_Wrapper(gym.Wrapper):
         self.remove_score = remove_score
 
     def reset(self, **kwargs):
-        observation, _ = super().reset(**kwargs)
+        observation, info = super().reset(**kwargs)
 
         if self.remove_score:
             observation[84:, :11, :] = 0
 
-        return observation
+        return observation, info
 
     def step(self, action: ActType):
-        observation, reward, done, truncated, _ = super().step(np.array(action))
+        observation, reward, done, truncated, info = super().step(np.array(action))
         reward_clipped = np.clip(reward, -0.1, 1e8)
 
         if self.remove_score:
             observation[84:, :11, :] = 0
 
-        return observation, reward_clipped, done, truncated
+        return observation, reward_clipped, done, truncated, info
     
     
 def load_demonstrations(data_file):
@@ -76,7 +76,7 @@ def save_demonstrations(data_file, actions, observations):
     np.savez_compressed(data_file, observations=observations, actions=actions)
     
     
-class RenderFrame(gym.Wrapper):
+class RenderFrame(SDC_Wrapper):
     """
     This class is used to play the simulation frames in a Jupyter notebook. 
     Code is taken from the render_frame library.
@@ -116,7 +116,7 @@ class RenderFrame(gym.Wrapper):
     def _start(self):
         self.cliptime = time.time()
         self.path = f'{self.directory}/{self.cliptime}.mp4'
-        fourcc = cv2.VideoWriter_fourcc(*'MP4V')
+        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
         self._writer = cv2.VideoWriter(self.path, fourcc, self.fps, self.size)
 
     def _write(self):
@@ -146,8 +146,8 @@ class RenderFrame(gym.Wrapper):
 
     def play(self):
         start = time.time()
-        filename = 'temp-{start}.mp4'
-        clip = VideoFileClip(self.path)
+        filename = r'temp-{start}.mp4'
+        clip = VideoFileClip(self.path, audio=False)
         clip.write_videofile(filename, verbose = False, logger = None)
         display(Video(filename, embed = True))
         os.remove(filename)

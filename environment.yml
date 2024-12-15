@@ -1,0 +1,22 @@
+name: behavior-cloning
+dependencies:
+  - python=3.10.12 
+  - ipython
+  - conda-forge::gymnasium 
+  - conda-forge::pygame 
+  - numpy
+  - conda-forge::swig 
+  - conda-forge::gymnasium-box2d
+  - conda-forge::moviepy
+  - pandas 
+  - matplotlib
+  - pytorch::pytorch 
+  - pytorch::torchvision
+  - conda-forge::torchview
+  - anaconda::ipykernel
+  - anaconda::jupyter
+  - conda-forge::tqdm
+  - pip
+  - pip:
+    - opencv-python
+

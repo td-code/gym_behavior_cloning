@@ -2,7 +2,8 @@
 .DS_Store
 .AppleDouble
 .LSOverride
-data/augmented_training_data.npz
+augmented_training_data.npz
+output/
 
 # Icon must end with two \r
 Icon
