@@ -1,4 +1,28 @@
 #!/usr/bin/env python3
+
+"""
+This script allows the user to record demonstrations by driving the car in the gym car-racing.
+However, it cannot be run in a Jupyter notebook, as it requires the user to interact with the 
+race car. So it must be run in a terminal and you need to install a local python environment 
+on your own PC.
+
+To install a local environment, use this setup:
+
+    conda env create -f environment.yml
+    conda activate behavior-cloning
+    python -m ipykernel install --user --name=behavior-cloning
+
+To view the demonstrations recorded with this script, run the following command:
+
+    conda activate behavior-cloning # if not already activated
+    ./record_demonstrations.py --view demos_with_braking.npz
+
+To record demonstrations, run the following command:
+
+    conda activate behavior-cloning # if not already activated
+    ./record_demonstrations.py my_own_data.npz
+"""
+
 import os
 import sys
 import matplotlib.pyplot as plt

@@ -18,11 +18,13 @@ def train(data_file, trained_network_file, args):
     infer_action = ClassificationNetwork()
     optimizer = torch.optim.Adam(infer_action.parameters(), lr=args.lr)
 
-    #Loss function
+    # MODIFY CODE HERE
+    # Loss function
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-    wgt = 10*np.clip(1.0/np.array([813, 141, 7, 813, 141, 7, 1830, 1817, 80]), 0.01, 0.1)
-    wgt = torch.Tensor(wgt).to(device)
-    loss_function = nn.CrossEntropyLoss(weight=wgt)
+    #wgt = 10*np.clip(1.0/np.array([813, 141, 7, 813, 141, 7, 1830, 1817, 80]), 0.01, 0.1)
+    #wgt = torch.Tensor(wgt).to(device)
+    #loss_function = nn.CrossEntropyLoss(weight=wgt)
+    loss_function = nn.CrossEntropyLoss()
 
     observations, actions = load_demonstrations(data_file)
     observations = [torch.Tensor(observation) for observation in observations]
@@ -36,7 +38,7 @@ def train(data_file, trained_network_file, args):
 
     nr_epochs = args.nr_epochs
     batch_size = args.batch_size
-    number_of_classes = 9  # needs to be changed
+    number_of_classes = 9  # NEEDS TO BE ADJUSTED
     start_time = time.time()
 
     for epoch in range(nr_epochs):
