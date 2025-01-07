@@ -7,9 +7,11 @@ dependencies:
   - numpy
   - conda-forge::swig 
   - conda-forge::gymnasium-box2d
+  - conda-forge::gymnasium-classic_control
   - conda-forge::moviepy
   - pandas 
   - matplotlib
+  - seaborn
   - pytorch::pytorch 
   - pytorch::torchvision
   - conda-forge::torchview

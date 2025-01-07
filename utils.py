@@ -114,20 +114,22 @@ class RenderFrame(SDC_Wrapper):
         self.active = True
 
     def _start(self):
-        self.cliptime = time.time()
-        self.path = f'{self.directory}/{self.cliptime}.mp4'
-        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-        self._writer = cv2.VideoWriter(self.path, fourcc, self.fps, self.size)
+        if self.active:
+            self.cliptime = time.time()
+            self.path = f'{self.directory}/{self.cliptime}.mp4'
+            fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+            self._writer = cv2.VideoWriter(self.path, fourcc, self.fps, self.size)
 
     def _write(self):
+        frame = self.env.render()
         if self.active:
-            frame = self.env.render()
             if self.rgb:
                 frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
             self._writer.write(frame)
 
     def release(self):
-        self._writer.release()
+        if self.active:
+            self._writer.release()
 
     def reset(self, *args, **kwargs):
         observation, info = self.env.reset(*args, **kwargs)
